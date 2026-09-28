@@ -3,17 +3,15 @@ window.KLAUSURCHECK_CONFIG = {
   className: "9. Klasse",
   topic: "Start in die Tabletklasse",
   datasetId: "goodnotes-workshop-9-2026-09",
-  version: "1.1.0",
+  version: "1.1.1",
 
   usageMode: "diagnose",
 
-  // Für den kurzen Einstieg ist kein Verlauf über mehrere Messzeitpunkte nötig.
   history: {
     enabled: false,
     autoMinutes: 2
   },
 
-  // Fragen und Wünsche der Lerngruppe können gegenseitig hochgestimmt werden.
   upvotesEnabled: true,
 
   competencies: [
@@ -49,8 +47,6 @@ window.KLAUSURCHECK_CONFIG = {
     }
   ],
 
-  // Bestehendes Supabase-Projekt des Lernstandschecks.
-  // Der Publishable Key ist für Browser-Code vorgesehen.
   supabaseUrl: "https://tgokrdtlvtfyxaqscuwx.supabase.co",
   supabasePublishableKey: "sb_publishable_YKnRHgSUgHx6dj-wDHWvOA_OKEFAaaW"
 };

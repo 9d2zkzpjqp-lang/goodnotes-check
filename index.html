@@ -1392,7 +1392,8 @@ async function loadStudentQuestionBoard(){
 
     const vResult = await supabase
       .from("kc_question_votes")
-      .select("question_id,user_id");
+      .select("question_id,user_id")
+      .eq("dataset_id",CONFIG.datasetId);
     if(vResult.error) throw vResult.error;
 
     const votes = vResult.data || [];
@@ -1465,13 +1466,18 @@ async function toggleQuestionVote(q,button){
       const {error}=await supabase
         .from("kc_question_votes")
         .delete()
+        .eq("dataset_id",CONFIG.datasetId)
         .eq("question_id",q.id)
         .eq("user_id",currentUser.id);
       if(error) throw error;
     }else{
       const {error}=await supabase
         .from("kc_question_votes")
-        .insert({question_id:q.id,user_id:currentUser.id});
+        .insert({
+          dataset_id: CONFIG.datasetId,
+          question_id: q.id,
+          user_id: currentUser.id
+        });
       if(error) throw error;
     }
     await loadStudentQuestionBoard();
@@ -1873,7 +1879,7 @@ async function loadDashboardData(){
       supabase.from("kc_questions").select("*").eq("dataset_id",CONFIG.datasetId).order("created_at",{ascending:false})
     ];
     if(UPVOTES_ENABLED) queries.push(
-      supabase.from("kc_question_votes").select("question_id,user_id")
+      supabase.from("kc_question_votes").select("question_id,user_id").eq("dataset_id",CONFIG.datasetId)
     );
     const [respResult, qResult, vResult] = await Promise.all(queries);
     if(respResult.error) throw respResult.error;
